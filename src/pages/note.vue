@@ -1,8 +1,9 @@
 <template>
-  <div id="app">
+  <div id="note">
     <toolbar></toolbar>
     <notes-list></notes-list>
     <editor></editor>
+    <register></register>
   </div>
 </template>
 
@@ -10,13 +11,15 @@
   import NotesList from '../components/NotesList.vue'
   import Toolbar from '../components/Toolbar.vue'
   import Editor from '../components/Editor.vue'
+  import Register from '../components/register.vue'
 
   export default {
     name: 'note',
     components: {
       Toolbar,
       NotesList,
-      Editor
+      Editor,
+      Register
     }
   }
 </script>

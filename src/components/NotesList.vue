@@ -7,7 +7,7 @@
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-default"
                   @click="setShowMode('all')"
-                  :class="{active: show === 'all'}">
+                  >
             All Notes
           </button>
         </div>
@@ -15,7 +15,7 @@
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-default"
                   @click="setShowMode('favorites')"
-                  :class="{active: show === 'favorites'}">
+                  >
             Favorites
           </button>
         </div>

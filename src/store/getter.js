@@ -30,3 +30,14 @@ export const getFilteredNotes = (state) => {
     return state.notes.filter(note => note.favorite)
   }
 }
+
+// 注册相关模块
+export const getIsShowReg = (state) => {
+  console.log('get isShowReg')
+  return state.isShowReg
+}
+// 登陆用户名字-用来判断是否登陆
+export const getCurrentUserName = (state) => {
+  console.log('get current username')
+  return state.currentUser
+}
