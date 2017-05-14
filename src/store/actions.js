@@ -1,13 +1,11 @@
 /**
  * Created by thejojo on 2017/5/9.
  */
-
 import * as types from './mutations_type'
-// import * as avs from '../config/leancloud'
 
-export const newNote = ({ commit }) => {
+export const newNote = ({ commit }, newNote) => {
   console.log('start newNote')
-  commit(types.NEW_NOTE)
+  commit(types.NEW_NOTE, newNote)
 }
 
 export const deleteNote = ({ commit }) => {
@@ -38,6 +36,11 @@ export const editNote = ({ commit }, note) => {
   commit('EDIT_NOTE', note)
 }
 
+export const editTitle = ({ commit }, note) => {
+  console.log('ediTitle', note)
+  commit('EDIT_TITLE', note)
+}
+
 // 注册相关，显示注册界面
 export const setShowReg = ({ commit }) => {
   console.log('显示Reg界面')
@@ -63,4 +66,21 @@ export const userLogin = ({ commit }, user) => {
 export const userLogout = ({ commit }) => {
   console.log('用户注销')
   commit('USER_LOGOUT')
+}
+
+// 注册后初始化note列表
+export const initNotelist = ({ commit }) => {
+  console.log('init notelist')
+  commit('INIT_NOTELIST')
+}
+
+// 上传结束之后，要把已经上传的值修改一下
+export const setIsUploaded = ({ commit }, notes) => {
+  console.log('上传完毕了，要去修改了')
+  commit('SET_ISUPLOADED', notes)
+}
+// 登陆结束之后，从leancloud获取note列表，然后更新到本地数据
+export const updateLocalNotes = ({ commit }, notes) => {
+  console.log('登陆结束之后，从leancloud获取note列表，然后更新到本地数据')
+  commit('UPDATE_LOCAL_NOTES', notes)
 }

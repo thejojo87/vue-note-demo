@@ -41,3 +41,8 @@ export const getCurrentUserName = (state) => {
   console.log('get current username')
   return state.currentUser
 }
+
+export const getLoginUser = (state) => {
+  console.log('getLoginUserId开始了')
+  return state.loginUser
+}

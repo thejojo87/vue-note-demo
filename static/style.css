@@ -25,7 +25,8 @@ body {
 
 #toolbar {
   width: 80px;
-  height: 100%;
+  /*60是为了高度和editor里的h1标题栏一样的*/
+  height: calc(100% + 60px);
   background-color: #30414D;
   color: #767676;
   padding: 35px 25px 25px 25px;

@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">vuex 2.0 {{ error }}</a>
+        <a class="navbar-brand" href="#">vuex 2.0 欢迎你！ {{ currentUser }} {{ error }} </a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <form class="navbar-form navbar-right">
@@ -26,7 +26,7 @@
           <button type="submit" class="btn btn-success" v-on:click="setShowReg">注册</button>
           </div>
           <div v-else class="form-group">
-            <a class="navbar-brand">欢迎你！ {{ currentUser }}</a>
+            <!--<a class="navbar-brand">欢迎你！ {{ currentUser }}</a>-->
             <button type="submit" class="btn btn-success" v-on:click="logout">退出</button>
           </div>
         </form>
@@ -57,23 +57,28 @@
         error: '',
         user: {
           name: '',
-          password: ''
+          password: '',
+          leancloudid: ''
         },
         leancloud: AV
       }
     },
     computed: {
       ...mapGetters({
-        currentUser: 'getCurrentUserName'
+        currentUser: 'getCurrentUserName',
+        loginUser: 'getLoginUser'
       })
     },
     methods: {
       ...mapActions([
         'setShowReg',
         'userLogin',
-        'userLogout'
+        'userLogout',
+        'updateLocalNotes'
       ]),
       login: function () {
+        console.log('login函数开始了')
+        console.log(this.user)
         if (!this.user.name || !this.user.password) {
           this.error = '输入不能为空'
         } else {
@@ -82,13 +87,29 @@
           console.log('去登陆')
           AV.User.logIn(this.user.name, this.user.password).then((loginedUser) => {
             console.log('登录成功')
+            console.log(loginedUser.id)
+            this.user.leancloudid = loginedUser.id
             this.userLogin(this.user)
-            this.user = ''
-            // TODO: 这里应该读取笔记列表
+            this.updateNotelist()
           }, function (error) {
             alert(error)
           })
         }
+      },
+      updateNotelist: function () {
+        const query = new AV.Query('notes')
+        query.descending('createdAt')
+        const owner = AV.Object.createWithoutData('_User', this.loginUser.leancloudid)
+        query.equalTo('owner', owner)
+        query.find().then((notes) => {
+          const notesToUpdate = []
+          notes.forEach(function (note, i, a) {
+            let value = {}
+            value = note.attributes
+            notesToUpdate.push(value)
+          })
+          this.updateLocalNotes(notesToUpdate)
+        })
       },
       logout: function () {
         console.log('开始logout')

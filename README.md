@@ -105,15 +105,61 @@ http://www.ruanyifeng.com/blog/2015/07/flex-examples.html
 很简单，一个component里，设置好data，然后另一个引用navbar主体。
 之后用navbar.data().leancloud 就可以了。
 
+8. vuex里参数我想多传几个但是发现第三个参数总是undefined
+
+https://segmentfault.com/q/1010000007185702
+
+只能传一个，所以要弄成集合的方式传过去所有参数。
+
+9. 删除的时候遇到一个问题，症状就是，删除的promise返回值，总是提示，then 没有定义
+
+一开始以为是es6语法不兼容问题，后来查看发现，我第一步先把本地的数据删除了。
+然后activenote里的id，就消失了。
+我拿着消失的数据去leancloud查询，出错。
+而并不是本地问题。
+
+
 ## ToDo
+ 
+ 
+ - [x] 1.添加login模块-完成 
 
-1.添加login模块-完成
+ - [x] 2.用leancloud存储在云上。
 
-2.用leancloud存储在云上。
+ - [ ] 3.restfulapi
 
-3.restfulapi
+ - [ ] 4.手机上接收和读写
 
-4.手机上接收和读写
+ - [ ] 5. 笔记何时保存？怎么检测变化？比如说简书，是随时更新并且保存，并且打开浏览器就回到原来的数据。
+如何做得到的？
+是不是该找找别人的思路？
+之前百度的任务别人的思路是添加一个检测，一有变化就更新。
+是不是应该找找别人的应用？
+找了一圈并没有找到特别合适的demo。
+localstorage是html5的新特性。
+需要用这个吗？
+这个和leancloud如何共存？
+
+在哪里新建数据呢？
+直接在vue界面？
+还是mutation里？
+因为如果从vue，那么还得从mutation里获取notes数据，是不是太麻烦了点？
+但是这个是要更新云端的数据，没道理在mutation里修改呀。
+还是在vue界面里吧。
+mutation只放修改state的操作。
+我首先在toolbar组件上添加了新建笔记的时候，如果检测到用户登陆，那么就上传到
+leancloud里。
+
+修改的时候怎么办呢？
+editor里，有个input检测选项，正常只不过是保存罢了。
+如果检测到这个事件，那么就该同时更新数据。
+activenote里，可以找到这个笔记，可以用id值来更新。
+
+https://leancloud.cn/docs/leanstorage_guide-js.html#%E6%9B%B4%E6%96%B0%E5%AF%B9%E8%B1%A1
+
+
+
+
 
 http://chicheng.info/2016/05/19/vue-webpack-leancloud-login/
 

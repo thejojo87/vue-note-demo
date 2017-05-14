@@ -1,7 +1,7 @@
 <template>
     <form  v-if="isShowReg" class="reg" method="post" @submit.prevent="reg" >
       <div class="blur" v-on:click="setUnShowReg"></div>
-        <div class="g-login" v-on:click="showChange">
+        <div class="g-login" >
         <a>注册</a>
         <div class="error" v-show="error">{{error}}</div>
         <input type="text" v-model="user.name" placeholder="用户名">
@@ -44,7 +44,8 @@
     methods: {
       ...mapActions([
         'setUnShowReg',
-        'userRegister'
+        'userRegister',
+        'initNotelist'
       ]),
       reg: function () {
         if (!this.user.name || !this.user.password || !this.user.email || !this.user.password_r) {
@@ -62,6 +63,7 @@
           const av = navbar.data().leancloud
           const user = new av.User()
           user.setUsername(this.user.name)
+          user.setEmail(this.user.email)
           user.setPassword(this.user.password)
           user.signUp().then((loginedUser) => {
             alert('注册成功')
@@ -74,10 +76,8 @@
             this.error = 'JSON.stringify(error)'
           })
         }
-      },
-      showChange () {
-//        console.log(e)
-        console.log('aaa')
+        // 注册完之后那么就是新的用户了，所以应该清空现有的笔记，初始化才可以
+        this.initNotelist()
       }
     }
   }

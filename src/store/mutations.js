@@ -16,13 +16,7 @@ export const state = {
 
 export const mutations = {
   // 新增笔记
-  [types.NEW_NOTE] (state) {
-    var newNote = {
-      id: +new Date(),
-      title: 'title',
-      content: 'new note',
-      favorite: false
-    }
+  [types.NEW_NOTE] (state, newNote) {
     state.notes.push(newNote)
     state.activeNote = newNote
   },
@@ -47,6 +41,9 @@ export const mutations = {
   [types.EDIT_NOTE] (state, note) {
     state.activeNote.content = note
   },
+  [types.EDIT_TITLE] (state, note) {
+    state.activeNote.title = note
+  },
   // 注册与登陆相关模块
   // 显示注册界面
   [types.SET_SHOW_REG] (state) {
@@ -63,6 +60,11 @@ export const mutations = {
     state.currentUser = state.loginUser.name
     state.isShowReg = false
   },
+  [types.INIT_NOTELIST] (state) {
+    console.log('initstate 开始了')
+    state.notes = []
+    state.activeNote = {}
+  },
   // 用户登陆-虽然和用户注册完后登陆是一样的代码，但是为了逻辑，我还是保留了这段代码
   [types.USER_LOGIN] (state, user) {
     console.log('登陆成功')
@@ -74,6 +76,20 @@ export const mutations = {
     console.log('注销成功')
     state.loginUser = ''
     state.currentUser = ''
+  },
+  // 上传结束之后要修改uploaded值,然后把id值换成leancloud里的id值
+  [types.SET_ISUPLOADED] (state, notes) {
+    console.log('上传结束之后要修改uploaded值')
+    console.log(notes)
+    notes.note.isUploaded = true
+    notes.note.id = notes.id
+  },
+  //
+  [types.UPDATE_LOCAL_NOTES] (state, notes) {
+    console.log('登陆后更新本地数据')
+    console.log(typeof notes)
+    console.log(notes)
+    state.notes = notes
   }
 }
 
