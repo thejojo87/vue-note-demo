@@ -1,6 +1,6 @@
 # vue-note
 
-> A Vue.js project
+> A Vue.js project-note
 
 ## Build Setup
 
@@ -21,9 +21,20 @@ npm run build --report
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 
-## 说明
+![mark](http://oc2aktkyz.bkt.clouddn.com/markdown/20170515/051602160.png)
 
-四个部分：
+## 说明
+在前人的基础上，写成vue2.0 ，css样式，原来是用float写的。
+改成了flex。
+增加了注册登陆，云端保存功能。
+注册需要邮箱格式正确，用户名需要大于3个字符。
+
+保存用的是leancloud。
+如果想用自己的leancloud，需要去注册leancloud。
+然后新建一个应用，替换src/config里的key。
+
+
+note 分为四个部分：
 app toolbar noteslist editor
 
 https://segmentfault.com/a/1190000005863691
@@ -32,7 +43,9 @@ https://segmentfault.com/a/1190000005863691
 
 修改了这个教程里一些部分。
 比如说，设置显示所有笔记和favorites笔记的字段，写在了store里。
-
+因为这个笔记是一点点增加功能的，而且增加了在leancloud里注册，保存笔记
+等内容，所以store字段有点混乱，本来可以减小很多。
+留待以后再重构。
 
 http://www.cnblogs.com/libin-1/p/6753399.html
 
@@ -45,14 +58,14 @@ http://www.cnblogs.com/libin-1/p/6753399.html
 
 http://www.jianshu.com/p/c6c0b50574d5
 
-leancloud用了注册功能，这个以前做过todo，很简单。
+
 
 
 ## 问题
 
 问题1：disptach能用么？
 
-问题2： 引用 ruter怎么办？
+问题2： 引用 router怎么办？
 
 ```javascript
 import VueRouter from '../node_modules/vue-router';
@@ -80,6 +93,7 @@ http://ithelp.ithome.com.tw/articles/10187723
 3. 引用了bootstrap的导航条，但是不想固定在上面怎么办？
 
 navbar 有个fix-top类
+
 4. navbar有个白线，20px怎么消除？
 试了各种办法，都无法覆盖。
 只好去引用的sass源码修改了。
@@ -125,14 +139,12 @@ https://segmentfault.com/q/1010000007185702
  - [x] 1.添加login模块-完成 
 
  - [x] 2.用leancloud存储在云上。
- 
- 退出的时候也需要清空
 
  - [ ] 3.restfulapi
 
  - [ ] 4.手机上接收和读写
 
- - [ ] 5. 笔记何时保存？怎么检测变化？比如说简书，是随时更新并且保存，并且打开浏览器就回到原来的数据。
+ - [x] 5. 笔记何时保存？怎么检测变化？比如说简书，是随时更新并且保存，并且打开浏览器就回到原来的数据。
 如何做得到的？
 是不是该找找别人的思路？
 之前百度的任务别人的思路是添加一个检测，一有变化就更新。
@@ -158,10 +170,6 @@ editor里，有个input检测选项，正常只不过是保存罢了。
 activenote里，可以找到这个笔记，可以用id值来更新。
 
 https://leancloud.cn/docs/leanstorage_guide-js.html#%E6%9B%B4%E6%96%B0%E5%AF%B9%E8%B1%A1
-
-
-
-
 
 http://chicheng.info/2016/05/19/vue-webpack-leancloud-login/
 
@@ -211,7 +219,6 @@ CDN 加速
 需要引用这个吗？还是装了sdk就不需要了？
 实际上是不需要的，只要引用就可以了
 import AV from 'leancloud-storage'
-
 
 还有用户名和密码是不是需要写在别的地方？
 src目录下新建了一个config的目录，新建了一个leancloud.js

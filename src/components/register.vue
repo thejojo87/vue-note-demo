@@ -120,7 +120,7 @@
 }
 .blur{
   width: 100%;
-  height: inherit;
+  height: calc(100% + 122px);
   position: relative;
   /*z-index: -1;*/
   background: rgba(0, 0, 0,0.5);

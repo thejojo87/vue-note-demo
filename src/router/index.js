@@ -17,6 +17,6 @@ export default new Router({
       name: 'note',
       component: note
     },
-    { path: '/*', redirect: '/Hello' }
+    { path: '/*', redirect: '/note' }
   ]
 })
