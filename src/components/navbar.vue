@@ -74,7 +74,8 @@
         'setShowReg',
         'userLogin',
         'userLogout',
-        'updateLocalNotes'
+        'updateLocalNotes',
+        'initNotelist'
       ]),
       login: function () {
         console.log('login函数开始了')
@@ -115,6 +116,7 @@
         console.log('开始logout')
         AV.User.logOut()
         this.userLogout()
+        this.initNotelist()
       }
     }
   }

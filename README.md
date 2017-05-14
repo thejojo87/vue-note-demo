@@ -125,6 +125,8 @@ https://segmentfault.com/q/1010000007185702
  - [x] 1.添加login模块-完成 
 
  - [x] 2.用leancloud存储在云上。
+ 
+ 退出的时候也需要清空
 
  - [ ] 3.restfulapi
 
