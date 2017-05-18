@@ -11,7 +11,11 @@ export const state = {
   // 注册相关
   isShowReg: false,
   currentUser: '',
-  loginUser: ''
+  loginUser: '',
+  todolists: [
+  ],
+  activeTodoLists: {
+  }
 }
 
 export const mutations = {
@@ -37,6 +41,9 @@ export const mutations = {
   // 点击笔记列表，设置当前笔记
   [types.SET_ACTIVE_NOTE] (state, note) {
     state.activeNote = note
+  },
+  [types.SET_ACTIVE_TODOLIST] (state, list) {
+    state.activeTodoLists = list
   },
   [types.EDIT_NOTE] (state, note) {
     state.activeNote.content = note
@@ -65,6 +72,12 @@ export const mutations = {
     state.notes = []
     state.activeNote = {}
   },
+  [types.INIT_TODOLIST] (state) {
+    console.log('initTodo 开始了')
+    state.todolists = []
+    state.activeTodoLists = {}
+    // state.activeNote = {}
+  },
   // 用户登陆-虽然和用户注册完后登陆是一样的代码，但是为了逻辑，我还是保留了这段代码
   [types.USER_LOGIN] (state, user) {
     console.log('登陆成功')
@@ -90,6 +103,11 @@ export const mutations = {
     console.log(typeof notes)
     console.log(notes)
     state.notes = notes
+  },
+  [types.UPDATE_LOCAL_TODOLISTS] (state, lists) {
+    console.log('登陆后更新本地数据todolosts')
+    console.log(lists)
+    state.todolists = lists
   }
 }
 

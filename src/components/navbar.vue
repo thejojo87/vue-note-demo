@@ -14,6 +14,7 @@
         <form class="navbar-form navbar-right">
           <router-link :to="{name: 'Hello'}">Hello</router-link>
           <router-link :to="{name: 'note'}">Note</router-link>
+          <router-link :to="{name: 'todo'}">Todo</router-link>
           <!--<div class="form-group" v-show="error">{{ error }}</div>-->
           <div v-show="currentUser===''" class="form-group">
             <input type="text" v-model="user.name" placeholder="用户名" class="form-control">
@@ -75,7 +76,9 @@
         'userLogin',
         'userLogout',
         'updateLocalNotes',
-        'initNotelist'
+        'updateTodoNotes',
+        'initNotelist',
+        'initTodolist'
       ]),
       login: function () {
         console.log('login函数开始了')
@@ -92,10 +95,26 @@
             this.user.leancloudid = loginedUser.id
             this.userLogin(this.user)
             this.updateNotelist()
+            this.updateTodolist()
           }, function (error) {
             alert(error)
           })
         }
+      },
+      updateTodolist: function () {
+        const query = new AV.Query('todolist')
+        query.descending('createdAt')
+        const owner = AV.Object.createWithoutData('_User', this.loginUser.leancloudid)
+        query.equalTo('owner', owner)
+        query.find().then((lists) => {
+          const listsToUpdate = []
+          lists.forEach(function (list, i, a) {
+            let value = {}
+            value = list.attributes
+            listsToUpdate.push(value)
+          })
+          this.updateTodoNotes(listsToUpdate)
+        })
       },
       updateNotelist: function () {
         const query = new AV.Query('notes')
@@ -117,6 +136,7 @@
         AV.User.logOut()
         this.userLogout()
         this.initNotelist()
+        this.initTodolist()
       }
     }
   }

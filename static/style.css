@@ -16,7 +16,7 @@ body {
   max-height: 100%;
   /*flex-direction: row*/
 }
-#note{
+#note, #todo{
   height: 100%;
   display: flex;
   flex-direction: row;

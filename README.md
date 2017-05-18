@@ -132,6 +132,43 @@ https://segmentfault.com/q/1010000007185702
 我拿着消失的数据去leancloud查询，出错。
 而并不是本地问题。
 
+10. v-for 和v-show 后者会失效的问题
+
+还没想好这个问题怎么解决。
+
+11. 随着高度flex部分会被压缩的问题。
+flex：none就可以了。
+
+12. 超出高度的时候如何才能显示滚动条呢？
+overflow：auto就可以了
+
+13. 如何在vue的一个模块里，使用另外一个vue文件里的方法？mixin？ 插件？
+貌似这个必须用插件方式来做成。
+我面对的问题是，当用户登陆的时候，需要从服务器接收数据，并且更新。
+然后当用户新建的时候，也需要从服务器更新数据，并更新本地数据列表。
+我需要复用这个功能。
+
+https://www.zhihu.com/question/40508884
+
+https://github.com/zhoou/vue-cli-multipage-bootstrap/blob/master/src/assets/js/common/util.js
+
+第一步：新建一个js文
+
+```javascript
+const utilHelper = {
+
+```
+
+第二步: main.js引用
+import util from './assets/js/util'
+
+Vue.prototype.utilHelper = util
+
+第三步：全局使用
+this.utilHelper.get_Todolist()
+
+下一个问题是，getters怎么才能在这里使用呢？
+
 
 ## ToDo
  

@@ -45,7 +45,8 @@
       ...mapActions([
         'setUnShowReg',
         'userRegister',
-        'initNotelist'
+        'initNotelist',
+        'initTodolist'
       ]),
       reg: function () {
         if (!this.user.name || !this.user.password || !this.user.email || !this.user.password_r) {
@@ -78,6 +79,7 @@
         }
         // 注册完之后那么就是新的用户了，所以应该清空现有的笔记，初始化才可以
         this.initNotelist()
+        this.initTodolist()
       }
     }
   }

@@ -18,7 +18,8 @@
     name: 'Editor',
     computed: {
       ...mapGetters({
-        getActiveNoteText: 'activeNoteText'
+        getActiveNoteText: 'activeNoteText',
+        getLoginedUsername: 'getCurrentUserName'
       })
     },
     methods: {
@@ -28,11 +29,16 @@
       ]),
       editAndSave: function (editedValue) {
         this.editNote(editedValue)
-        this.saveToLeancloud(editedValue)
+        console.log(this.getLoginedUsername)
+        if (this.getLoginedUsername) {
+          this.saveToLeancloud(editedValue)
+        }
       },
       editAndSaveTitle: function (editedValue) {
         this.editTitle(editedValue)
-        this.saveToLeancloudTitle(editedValue)
+        if (this.getLoginedUsername) {
+          this.saveToLeancloudTitle(editedValue)
+        }
       },
       saveToLeancloud: function (editedValue) {
         // 第一个参数是 className，第二个参数是 objectId

@@ -24,11 +24,15 @@ export const setShowMode = ({ commit }, mode) => {
   console.log(mode)
   commit(types.SET_SHOWMODE, mode)
 }
-
 //
 export const updateActiveNote = ({ commit }, note) => {
   console.log('setUPDATA', note)
   commit('SET_ACTIVE_NOTE', note)
+}
+
+export const updateActiveTodolist = ({ commit }, list) => {
+  console.log('setUPDATAActiveTodolist', list)
+  commit('SET_ACTIVE_TODOLIST', list)
 }
 
 export const editNote = ({ commit }, note) => {
@@ -73,7 +77,11 @@ export const initNotelist = ({ commit }) => {
   console.log('init notelist')
   commit('INIT_NOTELIST')
 }
-
+// 注册后初始化todo列表
+export const initTodolist = ({ commit }) => {
+  console.log('init todolist')
+  commit('INIT_TODOLIST')
+}
 // 上传结束之后，要把已经上传的值修改一下
 export const setIsUploaded = ({ commit }, notes) => {
   console.log('上传完毕了，要去修改了')
@@ -83,4 +91,10 @@ export const setIsUploaded = ({ commit }, notes) => {
 export const updateLocalNotes = ({ commit }, notes) => {
   console.log('登陆结束之后，从leancloud获取note列表，然后更新到本地数据')
   commit('UPDATE_LOCAL_NOTES', notes)
+}
+
+// 登陆结束之后，从leancloud获取todolist列表，然后更新到本地数据
+export const updateTodoNotes = ({ commit }, lists) => {
+  console.log('登陆结束之后，从leancloud获取todo列表，然后更新到本地数据')
+  commit('UPDATE_LOCAL_TODOLISTS', lists)
 }

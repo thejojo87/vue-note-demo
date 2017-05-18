@@ -19,6 +19,12 @@ export const activeNote = state => {
   return state.activeNote
 }
 
+// 获取当前激活todolist
+export const activeTodolists = state => {
+  console.log('activeTodolists 开始了')
+  return state.activeTodoLists
+}
+
 // 获取 noteList,这里将会根据 state.show 的状态做数据过滤
 export const getFilteredNotes = (state) => {
   console.log('notelist 开始了')
@@ -45,4 +51,9 @@ export const getCurrentUserName = (state) => {
 export const getLoginUser = (state) => {
   console.log('getLoginUserId开始了')
   return state.loginUser
+}
+
+export const getTodolists = (state) => {
+  console.log('todolists 开始了')
+  return state.todolists
 }
