@@ -28,13 +28,16 @@
     </div>
 
     <hr id="line2">
+    <context-menu id="context-menu" ref="ctxMenu">
+      <li @click="">重命名清单</li>
+      <li @click="">复制清单</li>
+      <hr id="line3">
+      <li @click="deleteList()" class="">删除清单</li>
+    </context-menu>
+
     <div class=" list_bar " v-for="item in this.getLists"
-         :class="{listactive: getActiveTodolists === item}"
-         @click="updateActiveTodolist(item)" @contextmenu.prevent = "test()">
-      <ul id="right-click-menu" tabindex="-1" v-if="viewMenu" >
-        <li>First list item</li>
-        <li>Second list item</li>
-      </ul>
+         :class="{listactive: getActiveTodolists.objectId === item.objectId}"
+         @click="updateActiveTodolist(item)" @contextmenu="updateActiveTodolist(item)" @contextmenu.prevent = "$refs.ctxMenu.open">
       <i  class="glyphicon glyphicon-list list_icon"></i>
       <div class="list_bar_title" >
         <span>{{ item.title }}</span>
@@ -46,10 +49,12 @@
 
 <script>
   import {mapGetters, mapActions} from 'vuex'
-//  import AV from 'leancloud-storage'
+  import contextMenu from 'vue-context-menu'
+  //  import AV from 'leancloud-storage'
   import navbar from '../navbar.vue'
   export default {
     name: 'sidebar',
+    components: { contextMenu },
     data () {
       return {
         viewMenu: false,
@@ -74,11 +79,17 @@
       ]),
       newList: function () {
         console.log('新建一个清单')
+        const sex = this.getLists
+        console.log(this.getActiveTodolists)
+        console.log(sex)
+        console.log('这是测试')
         if (this.getLoginUsername.leancloudid) {
           console.log('开始创建新清单')
           const newList = {
             title: 'title',
             count: 10,
+            objectId: '',
+            isActivelist: false,
             owner: {
               objectId: ''
             }
@@ -94,12 +105,16 @@
           todolist.setACL(acl) // 设置访问控制
           todolist.set('title', newList.title)
           todolist.set('count', newList.count)
+          todolist.set('isActivelist', newList.isActivelist)
           todolist.set('owner', AV.User.current())
           todolist.save().then((list) => {
-            console.log(list.id)
-            newList.owner.objectId = list.id
+            console.log(list)
+            newList.objectId = list.id
+            newList.owner.objectId = list.attributes.owner.id
+            console.log(newList.owner.objectId)
             console.log(newList)
             this.updateTodolist()
+            this.updateActiveTodolist(newList)
 //            this.utilHelper.get_Todolist()
             // 应该更新一下list视图,要么把newList塞进去，要么重新获取列表
           }, function (error) {
@@ -115,15 +130,30 @@
         const owner = AV.Object.createWithoutData('_User', this.getLoginUsername.leancloudid)
         query.equalTo('owner', owner)
         query.find().then((lists) => {
-          console.log('sss')
-          console.log(lists)
           const listsToUpdate = []
           lists.forEach(function (list, i, a) {
             let value = {}
             value = list.attributes
+            value['objectId'] = list.id
             listsToUpdate.push(value)
           })
           this.updateTodoNotes(listsToUpdate)
+        })
+      },
+      deleteList: function () {
+        console.log('delete')
+        console.log(this.getActiveTodolists.objectId)
+        const AV = this.av
+        const deleteToUpdate = AV.Object.createWithoutData('todolist', this.getActiveTodolists.objectId)
+        console.log('开始删除')
+        deleteToUpdate.destroy().then(() => {
+          // 删除成功,更新本地列表，initactivelist
+          console.log('删除成功了')
+          this.updateTodolist()
+          this.updateActiveTodolist({})
+        }, function (error) {
+          // 失败
+          console.log(error)
         })
       },
       test: function (e) {
@@ -184,15 +214,32 @@
   .list_bar_title {
     flex: 1;
   }
-  #line, #line2{
+  #line, #line2 ,#line3{
     width: 100%;
     margin-top: 5px;
     margin-bottom: 5px;
     border: 0;
-    border-top: 1px solid #444444;
+    border-top: 1px solid #d9534f;
   }
   .listactive {
     background-color: #66afe9;
+  }
+  #context-menu {
+    /*width: 250px;*/
+    /*margin: 20px;*/
+    /*padding: 0 10px;*/
+  }
+  #context-menu li{
+    background-color: #c0c0c0;
+    padding: 10px;
+    font-size: 15px;
+    /*color: #000000;*/
+  }
+  #context-menu li:hover{
+    background-color: #dddddd;
+  /*color: #444444;*/
+    /*opacity: 1;*/
+  /*color: #000000;*/
   }
 
 

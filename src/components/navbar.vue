@@ -111,6 +111,7 @@
           lists.forEach(function (list, i, a) {
             let value = {}
             value = list.attributes
+            value['objectId'] = list.id
             listsToUpdate.push(value)
           })
           this.updateTodoNotes(listsToUpdate)

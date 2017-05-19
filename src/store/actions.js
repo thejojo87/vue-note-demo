@@ -32,6 +32,7 @@ export const updateActiveNote = ({ commit }, note) => {
 
 export const updateActiveTodolist = ({ commit }, list) => {
   console.log('setUPDATAActiveTodolist', list)
+  console.log(list)
   commit('SET_ACTIVE_TODOLIST', list)
 }
 

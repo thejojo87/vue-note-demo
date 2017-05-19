@@ -43,6 +43,9 @@ export const mutations = {
     state.activeNote = note
   },
   [types.SET_ACTIVE_TODOLIST] (state, list) {
+    console.log('sasdfkasdkf')
+    console.log(list)
+    list.isActivelist = true
     state.activeTodoLists = list
   },
   [types.EDIT_NOTE] (state, note) {

@@ -170,6 +170,40 @@ this.utilHelper.get_Todolist()
 下一个问题是，getters怎么才能在这里使用呢？
 
 
+14. 右键自定义该怎么做？
+在清单，点击右键，出现删除按钮。
+
+```html
+    <div class=" list_bar " v-for="item in this.getLists"
+         :class="{listactive: getActiveTodolists === item}"
+         @click="updateActiveTodolist(item)" @contextmenu.prevent = "test()">
+```
+
+这个能防止并且启动test方法。但是我依然不知道该怎么才能生成自定义组件
+
+
+https://www.npmjs.com/package/vue-context-menu
+
+试试这个插件？
+
+15. 如何显示时间？
+vue本质就是javascript。
+所以可以使用momentjs这个库。
+http://momentjs.cn/
+npm install moment
+使用的时候，import moment 就可以了。
+本地化需要注意的是，format之前就使用locale
+https://itbilu.com/nodejs/npm/V19hUlw9x.html
+
+然后如何才能让时间刷新呢？
+https://itbilu.com/nodejs/npm/V19hUlw9x.html
+
+这里有个完美的demo
+新建一个方法，获取时间。
+然后created里，设置一个setInterval函数，每隔1秒启动上面的方法。
+
+
+
 ## ToDo
  
  

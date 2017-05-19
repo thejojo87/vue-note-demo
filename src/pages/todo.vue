@@ -2,6 +2,7 @@
 <div id="todo">
   <register></register>
   <sidebar></sidebar>
+  <mainbar></mainbar>
 </div>
 </template>
 
@@ -9,11 +10,13 @@
     import {mapGetters, mapActions} from 'vuex'
     import Register from '../components/register.vue'
     import Sidebar from '../components/todo/Sidebar.vue'
+    import Mainbar from '../components/todo/Mainbar.vue'
     export default {
       name: 'todo',
       components: {
         Register,
-        Sidebar
+        Sidebar,
+        Mainbar
       },
       computed: {
         ...mapGetters({})
