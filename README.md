@@ -312,6 +312,19 @@ src目录下新建了一个config的目录，新建了一个leancloud.js
 结果这个造成在vuex之外试图写入数据了。解决办法一个是使用promise，一个是重新更新
 但是，也可以有另一种方式，直接添加.添加和删除todoitem的时候就保存数据，这样的话，接收只要接收count就可以了。
 
+- [ ] 2.要做我的一天功能
+
+- [ ] 3.添加子任务很有意思-wunderlist，还有双击的话，会出现一个左边的详细栏目这个很好
+
+- [x] 4.任务完成的时候应该有声音提示的
+首先点击元素再绑定一个方法：;号分开就可以了。
+然后new Audio就可以了。
+但是有个问题，相对目录和绝对路径问题。
+static才是绝对路径。
+剩下的都会被webpack处理
+http://hq5544.github.io/vue-webpack/static.html
+
+http://www.jianshu.com/p/f82c5ecbd3a5
 
 ## 更新进度
 

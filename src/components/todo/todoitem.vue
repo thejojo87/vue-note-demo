@@ -5,7 +5,7 @@
     <input
     type="checkbox"
     :checked="item.done"
-    @click="updateDone(item)"
+    @click="updateDone(item); playAudio()"
     @change="toggleTodo(item.objectId)">
     {{ item.title }}
     </label>
@@ -64,6 +64,12 @@
           'updateTodoItem',
           'updateActiveTodolistCount'
         ]),
+        playAudio () {
+          console.log('playaudio')
+          var audio = new Audio()
+          audio.src = '../../../static/按钮铃.mp3'
+          audio.play()
+        },
         showEditMode () {
           this.updateMode = true
         },

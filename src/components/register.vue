@@ -31,8 +31,10 @@
           name: '',
           email: '',
           password: '',
-          password_r: ''
-        }
+          password_r: '',
+          leancloudid: ''
+        },
+        av: navbar.data().leancloud
       }
     },
     computed: {
@@ -46,7 +48,10 @@
         'setUnShowReg',
         'userRegister',
         'initNotelist',
-        'initTodolist'
+        'initTodolist',
+        'initMyDaylist',
+        'updateTodoNotes',
+        'updateActiveTodolist'
       ]),
       reg: function () {
         if (!this.user.name || !this.user.password || !this.user.email || !this.user.password_r) {
@@ -61,6 +66,7 @@
           // 注册成功，去注册
           // 这里应该给leancloud发送代码，如果正确，就储存数据资料
 //          console.log(navbar.data().leancloud)
+          const AV = this.av
           const av = navbar.data().leancloud
           const user = new av.User()
           user.setUsername(this.user.name)
@@ -70,16 +76,69 @@
             alert('注册成功')
             this.error = ''
             console.log('注册成功了-去登陆了')
+            console.log(AV.User.current())
+            console.log(loginedUser)
+            console.log('asdjkfh jkh')
+            this.user.leancloudid = loginedUser.id
             this.userRegister(this.user)
             this.user = ''
+            // 注册完之后那么就是新的用户了，所以应该清空现有的笔记，初始化才可以
+            this.initNotelist()
+            this.initTodolist()
+            this.initMyDay()
           }, (error) => {
             alert(JSON.stringify(error))
             this.error = 'JSON.stringify(error)'
           })
         }
-        // 注册完之后那么就是新的用户了，所以应该清空现有的笔记，初始化才可以
-        this.initNotelist()
-        this.initTodolist()
+      },
+      initMyDay: function () {
+        console.log('initmyday')
+        // 既然是注册了，那么在这里新建一个list对象并且上传过去,
+        // 还要把myday设置为activelist
+        // 和sidebar.vue里的动作是一样的
+        const myDayList = {
+          title: '我的一天',
+          count: 0,
+          objectId: '',
+          isActivelist: false,
+          owner: {
+            objectId: ''
+          },
+          isMyday: true
+        }
+        const AV = this.av
+        const ListClass = AV.Object.extend('todolist')
+        const todolist = new ListClass()
+        // 访问控制
+        const acl = new AV.ACL()
+        acl.setReadAccess(AV.User.current(), true) // 只有这个用户能读
+        acl.setWriteAccess(AV.User.current(), true) // 只有这个用户能写
+        todolist.setACL(acl) // 设置访问控制
+        todolist.set('title', myDayList.title)
+        todolist.set('count', myDayList.count)
+        todolist.set('isMyday', myDayList.isMyday)
+        todolist.set('isActivelist', myDayList.isActivelist)
+        console.log('09000')
+        console.log(AV.User.current())
+        todolist.set('owner', AV.User.current())
+        todolist.save().then((list) => {
+          console.log('asdufihajsdf')
+          console.log(list)
+          myDayList.objectId = list.id
+          myDayList.owner.objectId = list.attributes.owner.id
+          console.log(myDayList.owner.objectId)
+          console.log(myDayList)
+          // 注册结束了，但是注册后除了mydalist和todolist，应该什么也没有
+          // 因此并不需要更新todolist
+//          this.updateTodolist()
+          this.updateActiveTodolist(myDayList)
+          // 获取obid，更新下本地的mydaylist
+          this.initMyDaylist(myDayList)
+        }, function (error) {
+          alert(JSON.stringify(error))
+        })
+        // 结束了
       }
     }
   }

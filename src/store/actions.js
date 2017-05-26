@@ -33,6 +33,7 @@ export const updateActiveNote = ({ commit }, note) => {
 export const updateActiveTodolist = ({ commit }, list) => {
   console.log('setUPDATAActiveTodolist', list)
   console.log(list)
+  console.log(list.isActivelist)
   commit('SET_ACTIVE_TODOLIST', list)
 }
 
@@ -94,6 +95,11 @@ export const initTodolist = ({ commit }) => {
   console.log('init todolist')
   commit('INIT_TODOLIST')
 }
+// 注册后必须要初始化myday列表
+export const initMyDaylist = ({ commit }, mydaylist) => {
+  console.log('init mydaylist')
+  commit('INIT_MYDAYLIST', mydaylist)
+}
 // 上传结束之后，要把已经上传的值修改一下
 export const setIsUploaded = ({ commit }, notes) => {
   console.log('上传完毕了，要去修改了')
@@ -109,6 +115,11 @@ export const updateLocalNotes = ({ commit }, notes) => {
 export const updateTodoNotes = ({ commit }, lists) => {
   console.log('登陆结束之后，从leancloud获取todo列表，然后更新到本地数据')
   commit('UPDATE_LOCAL_TODOLISTS', lists)
+}
+// 更新myday数据
+export const updateLocalMyday = ({ commit }, myDay) => {
+  console.log('登陆结束之后，myDay，然后更新到本地数据')
+  commit('UPDATE_LOCAL_MYDAY', myDay)
 }
 // 更新todoitems
 export const updateTodoItems = ({ commit }, items) => {

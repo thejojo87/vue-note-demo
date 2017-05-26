@@ -79,7 +79,8 @@
         'updateTodoNotes',
         'updateTodoItems',
         'initNotelist',
-        'initTodolist'
+        'initTodolist',
+        'updateLocalMyday'
       ]),
       login: function () {
         console.log('login函数开始了')
@@ -126,12 +127,36 @@
         query.equalTo('owner', owner)
         query.find().then((lists) => {
           const listsToUpdate = []
+          let mydaytopush = []
           lists.forEach(function (list, i, a) {
             let value = {}
             value = list.attributes
             value['objectId'] = list.id
-            listsToUpdate.push(value)
+            if (!value['isMyday']) {
+              listsToUpdate.push(value)
+            } else {
+              console.log('需要更新isMyday')
+              console.log(value)
+              var myDay = {
+                title: '我的一天',
+                count: 0,
+                objectId: '',
+                isActivelist: false,
+                owner: {
+                  objectId: ''
+                },
+                isMyday: true
+              }
+              myDay.objectId = value['objectId']
+              console.log(value['owner']['id'])
+              myDay.count = value['count']
+              myDay.owner.objectId = value['owner']['id']
+              console.log(myDay)
+              mydaytopush = myDay
+            }
           })
+          this.updateLocalMyday(mydaytopush)
+//          this.updateActiveTodolist(mydaytopush)
           this.updateTodoNotes(listsToUpdate)
         })
       },

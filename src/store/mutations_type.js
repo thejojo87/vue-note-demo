@@ -21,7 +21,8 @@ export const USER_LOGOUT = 'USER_LOGOUT'
 // 注册完成后初始化note列表
 export const INIT_NOTELIST = 'INIT_NOTELIST'
 export const INIT_TODOLIST = 'INIT_TODOLIST'
-
+export const INIT_MYDAYLIST = 'INIT_MYDAYLIST'
+export const UPDATE_LOCAL_MYDAY = 'UPDATE_LOCAL_MYDAY'
 // 上传leancloud相关
 export const SET_ISUPLOADED = 'SET_ISUPLOADED'
 export const UPDATE_LOCAL_NOTES = 'UPDATE_LOCAL_NOTES'

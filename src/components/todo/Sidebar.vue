@@ -4,12 +4,14 @@
       <i  class="glyphicon glyphicon-user list_icon"></i>
       <div class="userToolbar-name">你好~ {{ currentUsername }}</div>
     </div>
-    <div id="my_today_bar" class="list_bar">
+    <div id="my_today_bar" class="list_bar"
+         :class="{listactive: getActiveTodolists.objectId === getDayList.objectId}"
+         @click="updateActiveTodolist(getDayList)">
       <i  class="glyphicon glyphicon-certificate list_icon"></i>
       <div class="list_bar_title" >
-        <span>我的一天</span>
+        <span>{{ this.getDayList.title }}</span>
       </div>
-      <div class="list_bar_count" aria-hidden="true" >2</div>
+      <div class="list_bar_count" aria-hidden="true" >{{ this.getDayList.count }}</div>
     </div>
     <div id="todo_bar" class="list_bar">
       <i  class="glyphicon glyphicon-list-alt list_icon"></i>
@@ -69,7 +71,8 @@
         currentUsername: 'getCurrentUserName',
         getLists: 'getTodolists',
         getLoginUsername: 'getLoginUser',
-        getActiveTodolists: 'activeTodolists'
+        getActiveTodolists: 'activeTodolists',
+        getDayList: 'getMyDaylist'
       })
     },
     methods: {
@@ -79,13 +82,7 @@
         'deleteTodoitemById'
       ]),
       newList: function () {
-        console.log('新建一个清单')
-        const sex = this.getLists
-        console.log(this.getActiveTodolists)
-        console.log(sex)
-        console.log('这是测试')
         if (this.getLoginUsername.leancloudid) {
-          console.log('开始创建新清单')
           const newList = {
             title: 'title',
             count: 0,
@@ -93,7 +90,8 @@
             isActivelist: false,
             owner: {
               objectId: ''
-            }
+            },
+            isMyday: false
           }
           const AV = this.av
 //          const currentUser = AV.User.current()
@@ -106,6 +104,7 @@
           todolist.setACL(acl) // 设置访问控制
           todolist.set('title', newList.title)
           todolist.set('count', newList.count)
+          todolist.set('isMyday', newList.isMyday)
           todolist.set('isActivelist', newList.isActivelist)
           todolist.set('owner', AV.User.current())
           todolist.save().then((list) => {

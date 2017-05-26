@@ -14,6 +14,16 @@ export const state = {
   loginUser: '',
   todolists: [
   ],
+  myDaylist: {
+    title: '我的一天',
+    count: 0,
+    objectId: '',
+    isActivelist: false,
+    owner: {
+      objectId: ''
+    },
+    isMyday: true
+  },
   activeTodoLists: {
   },
   todoitems: [
@@ -111,8 +121,24 @@ export const mutations = {
   [types.INIT_TODOLIST] (state) {
     console.log('initTodo 开始了')
     state.todolists = []
+    state.todoitems = []
+    state.tododisplayitems = []
     state.activeTodoLists = {}
     // state.activeNote = {}
+    state.myDaylist = {
+      title: '我的一天',
+      count: 0,
+      objectId: '',
+      isActivelist: false,
+      owner: {
+        objectId: ''
+      },
+      isMyday: true
+    }
+  },
+  [types.INIT_MYDAYLIST] (state, mydaylist) {
+    console.log('initmyday开始了')
+    state.myDaylist = mydaylist
   },
   // 用户登陆-虽然和用户注册完后登陆是一样的代码，但是为了逻辑，我还是保留了这段代码
   [types.USER_LOGIN] (state, user) {
@@ -139,6 +165,13 @@ export const mutations = {
     console.log(typeof notes)
     console.log(notes)
     state.notes = notes
+  },
+  [types.UPDATE_LOCAL_MYDAY] (state, myday) {
+    console.log('登陆后更新本地数据')
+    console.log(typeof myday)
+    console.log(myday)
+    state.myDaylist = myday
+    state.activeTodoLists = myday
   },
   [types.UPDATE_LOCAL_TODOLISTS] (state, lists) {
     console.log('登陆后更新本地数据todolosts')
@@ -177,7 +210,6 @@ export const mutations = {
   },
   [types.DELETE_TODOITEM_BYID] (state, id) {
     console.log('mutation里删除了')
-    console.log('asdkljfh ajsdhf kjasdhf j')
     state.todoitems = state.todoitems.filter(item => item.list.id !== id)
   },
   [types.UPDATE_TODOITEM] (state, obj) {

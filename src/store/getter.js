@@ -58,6 +58,11 @@ export const getTodolists = (state) => {
   return state.todolists
 }
 
+export const getMyDaylist = (state) => {
+  console.log('getMyDaylist 开始了')
+  return state.myDaylist
+}
+
 // export const getTodoItems = (state) => {
 //   console.log('tododisplayitems 开始了')
 //   return state.tododisplayitems
