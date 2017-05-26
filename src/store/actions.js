@@ -36,9 +36,20 @@ export const updateActiveTodolist = ({ commit }, list) => {
   commit('SET_ACTIVE_TODOLIST', list)
 }
 
+export const updateActiveTodolistCount = ({ commit }, count) => {
+  // console.log('setUPDATAActiveTodolist', list)
+  console.log(count)
+  commit('SET_ACTIVE_TODOLISTCOUNT', count)
+}
+
 export const editNote = ({ commit }, note) => {
   console.log('editNote', note)
   commit('EDIT_NOTE', note)
+}
+
+export const editTodolistTitle = ({ commit }, note) => {
+  console.log('editTodolistTitle', note)
+  commit('EDIT_TODOLIST_TITLE', note)
 }
 
 export const editTitle = ({ commit }, note) => {
@@ -98,4 +109,39 @@ export const updateLocalNotes = ({ commit }, notes) => {
 export const updateTodoNotes = ({ commit }, lists) => {
   console.log('登陆结束之后，从leancloud获取todo列表，然后更新到本地数据')
   commit('UPDATE_LOCAL_TODOLISTS', lists)
+}
+// 更新todoitems
+export const updateTodoItems = ({ commit }, items) => {
+  console.log('登陆结束之后，从leancloud获取item列表，然后更新到本地数据')
+  commit('UPDATE_LOCAL_TODOITEMS', items)
+}
+// 更新todoitems，这个和上一个不一样，上一个是直接赋值，这个只是插入
+export const updateTodoItemsAdd = ({ commit }, items) => {
+  console.log('登陆结束之后，从leancloud获取item列表，然后更新到本地数据')
+  commit('UPDATE_LOCAL_TODOITEMSADD', items)
+}
+// 更新display数组
+export const updateTodoItemsDisplay = ({ commit }, item) => {
+  commit('UPDATE_TODO_ITEMS_DISPLAY', item)
+}
+// tod 反转数值
+export const toggleTodo = ({ commit }, key) => {
+  console.log('toggleTodo', key)
+  commit(types.TOGGLE_TODO, key)
+}
+// 删除item
+export const deleteTodoitem = ({ commit }, item) => {
+  console.log('删除todoitem')
+  commit(types.DELETE_TODOITEM, item)
+}
+export const deleteTodoitemById = ({ commit }, id) => {
+  console.log('删除todoitembyid')
+  console.log(id)
+  commit(types.DELETE_TODOITEM_BYID, id)
+}
+// 修改todoitems
+export const updateTodoItem = ({ commit }, obj) => {
+  console.log('updateTodoItem')
+  console.log(obj)
+  commit(types.UPDATE_TODOITEM, obj)
 }

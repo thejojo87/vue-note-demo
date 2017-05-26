@@ -77,6 +77,7 @@
         'userLogout',
         'updateLocalNotes',
         'updateTodoNotes',
+        'updateTodoItems',
         'initNotelist',
         'initTodolist'
       ]),
@@ -96,10 +97,27 @@
             this.userLogin(this.user)
             this.updateNotelist()
             this.updateTodolist()
+            this.updateTodoItemlist()
           }, function (error) {
             alert(error)
           })
         }
+      },
+      updateTodoItemlist: function () {
+        const query = new AV.Query('todoitems')
+        query.descending('createdAt')
+        const owner = AV.Object.createWithoutData('_User', this.loginUser.leancloudid)
+        query.equalTo('owner', owner)
+        query.find().then((lists) => {
+          const itemsToUpdate = []
+          lists.forEach(function (list, i, a) {
+            let value = {}
+            value = list.attributes
+            value['objectId'] = list.id
+            itemsToUpdate.push(value)
+          })
+          this.updateTodoItems(itemsToUpdate)
+        })
       },
       updateTodolist: function () {
         const query = new AV.Query('todolist')

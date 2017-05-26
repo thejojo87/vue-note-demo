@@ -75,7 +75,8 @@
     methods: {
       ...mapActions([
         'updateTodoNotes',
-        'updateActiveTodolist'
+        'updateActiveTodolist',
+        'deleteTodoitemById'
       ]),
       newList: function () {
         console.log('新建一个清单')
@@ -87,7 +88,7 @@
           console.log('开始创建新清单')
           const newList = {
             title: 'title',
-            count: 10,
+            count: 0,
             objectId: '',
             isActivelist: false,
             owner: {
@@ -144,7 +145,27 @@
         console.log('delete')
         console.log(this.getActiveTodolists.objectId)
         const AV = this.av
-        const deleteToUpdate = AV.Object.createWithoutData('todolist', this.getActiveTodolists.objectId)
+        const activeTodolist = this.getActiveTodolists
+        // 删除todo，先获取所有以listid为list的todoitem值
+        const query = new AV.Query('todoitems')
+        const list = AV.Object.createWithoutData('todolist', activeTodolist.objectId)
+        query.equalTo('list', list)
+        query.find().then((results) => {
+          for (let i = 0; i < results.length; i++) {
+            results[i].destroy() // 使用destroy方法对返回来的数据进行删除
+          }
+          // 删除成功,更新本地列表，initactivelist
+          console.log('删除成功了listitems')
+          console.log(this.getActiveTodolists)
+          this.deleteTodoitemById(activeTodolist.objectId)
+//          this.updateTodolist()
+//          this.updateActiveTodolist({})
+        }, function (error) {
+          // 失败
+          console.log(error)
+        })
+        // 删除list
+        const deleteToUpdate = AV.Object.createWithoutData('todolist', activeTodolist.objectId)
         console.log('开始删除')
         deleteToUpdate.destroy().then(() => {
           // 删除成功,更新本地列表，initactivelist

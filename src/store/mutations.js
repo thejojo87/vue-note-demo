@@ -15,6 +15,11 @@ export const state = {
   todolists: [
   ],
   activeTodoLists: {
+  },
+  todoitems: [
+  ],
+  tododisplayitems: [],
+  activeTodoItems: {
   }
 }
 
@@ -44,15 +49,43 @@ export const mutations = {
   },
   [types.SET_ACTIVE_TODOLIST] (state, list) {
     console.log('sasdfkasdkf')
-    console.log(list)
     list.isActivelist = true
     state.activeTodoLists = list
+    state.tododisplayitems = []
+    // 顺便更新下要display的item数组
+    for (var i in state.todoitems) {
+      console.log('asdfasdfasdfasdf')
+      console.log(list.objectId)
+      console.log(i)
+      console.log(state.todoitems[i].list)
+      console.log(state.todoitems[i].list.id)
+      if (list.objectId === state.todoitems[i].list.id) {
+        console.log('yiyang')
+        state.tododisplayitems.push(state.todoitems[i])
+      }
+    }
+  },
+  [types.SET_ACTIVE_TODOLISTCOUNT] (state, count) {
+    state.activeTodoLists.count = count
+    for (var i in state.todolists) {
+      if (state.activeTodoLists.objectId === state.todolists[i].objectId) {
+        state.todolists[i].count = count
+      }
+    }
   },
   [types.EDIT_NOTE] (state, note) {
     state.activeNote.content = note
   },
   [types.EDIT_TITLE] (state, note) {
     state.activeNote.title = note
+  },
+  [types.EDIT_TODOLIST_TITLE] (state, note) {
+    state.activeTodoLists.title = note
+    for (var i in state.todolists) {
+      if (state.activeTodoLists.objectId === state.todolists[i].objectId) {
+        state.todolists[i].title = note
+      }
+    }
   },
   // 注册与登陆相关模块
   // 显示注册界面
@@ -111,6 +144,56 @@ export const mutations = {
     console.log('登陆后更新本地数据todolosts')
     console.log(lists)
     state.todolists = lists
+  },
+  [types.UPDATE_LOCAL_TODOITEMS] (state, items) {
+    console.log('登陆后更新本地数据todoitems')
+    console.log(items)
+    // 这里转换格式，统一比较好
+    state.todoitems = items
+  },
+  [types.UPDATE_LOCAL_TODOITEMSADD] (state, items) {
+    console.log('添加后更新本地数据todoitems')
+    console.log(items)
+    state.todoitems.push(items)
+  },
+  [types.UPDATE_TODO_ITEMS_DISPLAY] (state, item) {
+    state.tododisplayitems.push(item)
+  },
+  [types.TOGGLE_TODO] (state, key) {
+    console.log(key)
+    var newState = state.tododisplayitems.filter(function (el) {
+      return el.objectId === key
+    })
+    console.log(newState[0])
+    newState[0].done = !newState[0].done
+  },
+  [types.DELETE_TODOITEM] (state, obj) {
+    console.log('mutation里删除了')
+    for (var i in state.todoitems) {
+      console.log(i)
+      state.todoitems = state.todoitems.filter(item => item.objectId !== obj.objectId)
+      state.tododisplayitems = state.tododisplayitems.filter(item => item.objectId !== obj.objectId)
+    }
+  },
+  [types.DELETE_TODOITEM_BYID] (state, id) {
+    console.log('mutation里删除了')
+    console.log('asdkljfh ajsdhf kjasdhf j')
+    state.todoitems = state.todoitems.filter(item => item.list.id !== id)
+  },
+  [types.UPDATE_TODOITEM] (state, obj) {
+    console.log('updateTodoitem')
+    for (var i in state.todoitems) {
+      console.log(i)
+      if (obj.key === state.todoitems[i].objectId) {
+        state.todoitems[i].title = obj.change
+      }
+    }
+    for (var j in state.tododisplayitems) {
+      console.log(i)
+      if (obj.key === state.tododisplayitems[j].objectId) {
+        state.tododisplayitems[j].title = obj.change
+      }
+    }
   }
 }
 

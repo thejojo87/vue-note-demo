@@ -6,12 +6,9 @@ import router from './router'
 import store from './store'
 import './assets/css/bootstrap/stylesheets/_bootstrap.scss'
 import util from './assets/js/util'
-import moment from 'moment'
 
 Vue.config.productionTip = false
 Vue.prototype.utilHelper = util
-Vue.use(require('vue-moment'))
-Vue.prototype.moment = moment
 
 /* eslint-disable no-new */
 new Vue({

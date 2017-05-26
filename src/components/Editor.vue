@@ -63,9 +63,10 @@
 <style>
 #editor-title{
   text-align: center;
-  background-color: #f0ad4e;
+  background-color: #2c3e50;
+  color: #dd5;
   height: 60px;
-  margin-bottom: 0;
+  /*margin-bottom: 0;*/
   width: 100%;
   padding: 0;
   margin: 0;

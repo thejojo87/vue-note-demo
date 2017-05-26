@@ -57,3 +57,22 @@ export const getTodolists = (state) => {
   console.log('todolists 开始了')
   return state.todolists
 }
+
+// export const getTodoItems = (state) => {
+//   console.log('tododisplayitems 开始了')
+//   return state.tododisplayitems
+// }
+
+// display数组里，done的数组
+export const getDoneItems = (state) => {
+  return state.tododisplayitems.filter((item) => {
+    return item.done
+  })
+}
+
+// display数组里，todone的数组
+export const getToDoItems = (state) => {
+  return state.tododisplayitems.filter((item) => {
+    return !item.done
+  })
+}
