@@ -55,7 +55,12 @@ export const getLoginUser = (state) => {
 
 export const getTodolists = (state) => {
   console.log('todolists 开始了')
-  return state.todolists
+  // var stateWithoutMyday = state.todolists.filter(function (el) {
+  //   return el.isMyday === true
+  // })
+  return state.todolists.filter(function (el) {
+    return el.isMyday === false
+  })
 }
 
 export const getMyDaylist = (state) => {

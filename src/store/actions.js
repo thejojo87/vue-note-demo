@@ -43,6 +43,12 @@ export const updateActiveTodolistCount = ({ commit }, count) => {
   commit('SET_ACTIVE_TODOLISTCOUNT', count)
 }
 
+export const updateLocalTodoitemCount = ({ commit }, item) => {
+  console.log('start updateLocalTodoitemCount')
+  console.log(item)
+  commit(types.UPDATE_LOCALTODOITEMCOUNT, item)
+}
+
 export const editNote = ({ commit }, note) => {
   console.log('editNote', note)
   commit('EDIT_NOTE', note)
@@ -119,7 +125,9 @@ export const updateTodoNotes = ({ commit }, lists) => {
 // 更新myday数据
 export const updateLocalMyday = ({ commit }, myDay) => {
   console.log('登陆结束之后，myDay，然后更新到本地数据')
-  commit('UPDATE_LOCAL_MYDAY', myDay)
+  setTimeout(function () {
+    commit('UPDATE_LOCAL_MYDAY', myDay)
+  }, 100)
 }
 // 更新todoitems
 export const updateTodoItems = ({ commit }, items) => {

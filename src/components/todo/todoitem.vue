@@ -5,7 +5,7 @@
     <input
     type="checkbox"
     :checked="item.done"
-    @click="updateDone(item); playAudio()"
+    @click="updateDone(item); playAudio(); updateLocalTodoitemCount(item)"
     @change="toggleTodo(item.objectId)">
     {{ item.title }}
     </label>
@@ -62,7 +62,8 @@
           'toggleTodo',
           'deleteTodoitem',
           'updateTodoItem',
-          'updateActiveTodolistCount'
+          'updateActiveTodolistCount',
+          'updateLocalTodoitemCount'
         ]),
         playAudio () {
           console.log('playaudio')

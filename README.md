@@ -207,7 +207,11 @@ https://itbilu.com/nodejs/npm/V19hUlw9x.html
 不知道为什么。
 具体有什么冲突呢？
 
-16.
+16. 异步操作该怎么做？promise？
+我才发现vuex本身就是有actions里设置异步操作的功能
+http://www.cnblogs.com/wwlhome/p/6522853.html
+
+
 
 ## ToDo
  

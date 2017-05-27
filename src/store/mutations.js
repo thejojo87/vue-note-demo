@@ -59,6 +59,7 @@ export const mutations = {
   },
   [types.SET_ACTIVE_TODOLIST] (state, list) {
     console.log('sasdfkasdkf')
+    console.log(state.todoitems)
     list.isActivelist = true
     state.activeTodoLists = list
     state.tododisplayitems = []
@@ -172,6 +173,34 @@ export const mutations = {
     console.log(myday)
     state.myDaylist = myday
     state.activeTodoLists = myday
+    // 顺便更新下要display的item数组
+    for (var i in state.todoitems) {
+      if (myday.objectId === state.todoitems[i].list.id) {
+        console.log('yiyang')
+        state.tododisplayitems.push(state.todoitems[i])
+      }
+    }
+  },
+  [types.UPDATE_LOCALTODOITEMCOUNT] (state, item) {
+    console.log('count 更新开始了')
+    if (state.activeTodoLists.title === '我的一天') {
+      if (item.done === false) {
+        state.activeTodoLists.count = state.activeTodoLists.count - 1
+      } else {
+        state.activeTodoLists.count = state.activeTodoLists.count + 1
+      }
+    } else {
+      for (var i in state.todolists) {
+        if (item.list.id === state.todolists[i].objectId) {
+          console.log('asdjklfh aksjdfh akjsdfh 一样')
+          if (item.done === false) {
+            state.todolists[i].count = state.todolists[i].count - 1
+          } else {
+            state.todolists[i].count = state.todolists[i].count + 1
+          }
+        }
+      }
+    }
   },
   [types.UPDATE_LOCAL_TODOLISTS] (state, lists) {
     console.log('登陆后更新本地数据todolosts')

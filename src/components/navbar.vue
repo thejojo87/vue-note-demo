@@ -125,9 +125,10 @@
         query.descending('createdAt')
         const owner = AV.Object.createWithoutData('_User', this.loginUser.leancloudid)
         query.equalTo('owner', owner)
+        let mydaytopush = []
         query.find().then((lists) => {
           const listsToUpdate = []
-          let mydaytopush = []
+//          let mydaytopush = []
           lists.forEach(function (list, i, a) {
             let value = {}
             value = list.attributes
@@ -155,8 +156,8 @@
               mydaytopush = myDay
             }
           })
+          // 这个只操作一次，而且用了异步操作
           this.updateLocalMyday(mydaytopush)
-//          this.updateActiveTodolist(mydaytopush)
           this.updateTodoNotes(listsToUpdate)
         })
       },
