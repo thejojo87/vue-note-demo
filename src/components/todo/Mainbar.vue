@@ -123,7 +123,12 @@ export default {
       listCountToUpdate.save()
     },
     updateCurrentTime () {
-      this.currentTime = moment().locale('zh-cn').format('MMMM Do YYYY, h:mm:ss a')
+      console.log('aaaaaaaaa')
+      setInterval(() => {
+        console.log('aaaaaaaaa')
+        this.currentTime = moment().locale('zh-cn').format('MMMM Do YYYY, h:mm:ss a')
+        console.log(this.currentTime)
+      }, 1000)
     },
     editAndSaveTitle: function (editedValue) {
       const AV = this.av
@@ -143,6 +148,7 @@ export default {
   created: function () {
     this.currentTime = moment().locale('zh-cn').format('MMMM Do YYYY, h:mm:ss a')
     console.log(this.currentTime)
+    this.updateCurrentTime()
 //    setInterval(() => {
 //      this.updateCurrentTime()
 //    }, 1 * 1000)

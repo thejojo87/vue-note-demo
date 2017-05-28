@@ -9,6 +9,9 @@
     @change="toggleTodo(item.objectId)">
     {{ item.title }}
     </label>
+    <button id="main-items-moveToMyday" class="main-items-showeditmode btn btn-default btn-info" @click="moveToMyDay( item )">
+      <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span>
+    </button>
     <button id="main-items-showeditmode-2" class="btn btn-xs btn-primary" @click="showEditMode">
     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
     </button>
@@ -83,6 +86,10 @@
           todoDoneToUpdate.set('done', !item.done)
           // 保存到云端
           todoDoneToUpdate.save()
+        },
+        moveToMyDay (item) {
+          console.log(item)
+          console.log('movetomyday开始了')
         },
         deleteTodo (item) {
           console.log('删除')
