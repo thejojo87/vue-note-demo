@@ -317,6 +317,15 @@ src目录下新建了一个config的目录，新建了一个leancloud.js
 但是，也可以有另一种方式，直接添加.添加和删除todoitem的时候就保存数据，这样的话，接收只要接收count就可以了。
 
 - [ ] 2.要做我的一天功能
+并不像一开始想的那么容易，主要问题还是数据结构。
+比如说清单里的item要添加到我的一天里。
+那么这个item是同时处在我的一天和原来的list里的。
+这就是多对多关系了，貌似需要用中间表来实现
+
+https://leancloud.cn/docs/relation-guide.html#%E4%BD%BF%E7%94%A8%E4%B8%AD%E9%97%B4%E8%A1%A8%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%AF%B9%E5%A4%9A%E5%85%B3%E7%B3%BB_%E6%8E%A8%E8%8D%90
+
+首先要获取av.object。获取list和item的objectid获取的object。
+
 
 - [ ] 3.添加子任务很有意思-wunderlist，还有双击的话，会出现一个左边的详细栏目这个很好
 
@@ -330,6 +339,16 @@ http://hq5544.github.io/vue-webpack/static.html
 
 http://www.jianshu.com/p/f82c5ecbd3a5
 
+
+- [ ] 5.fetchWhenSave
+用这个来更新本地数据，而不是直接增加
+https://github.com/leancloud/docs/blob/master/archive/js_guide.md
+
+
 ## 更新进度
 
 2017/5/25/ 更新了todo的左边数字模块
+
+## bug列表
+
+- [ x ] 注册第二次不知道为什么会出现输入不能为空

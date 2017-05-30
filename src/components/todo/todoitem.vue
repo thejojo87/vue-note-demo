@@ -89,6 +89,7 @@
         },
         moveToMyDay (item) {
           console.log(item)
+          // todo: 这里要做移动到我的一天
           console.log('movetomyday开始了')
         },
         deleteTodo (item) {
@@ -101,15 +102,17 @@
           deleteToUpdate.destroy().then(() => {
             // 删除成功,更新本地列表，initactivelist
             console.log('删除成功了')
-            // 更新count
-            this.updateActiveTodolistCount(this.getActiveTodoList.count - 1)
-//          // count 数量也要上传才可以
-//          // 第一个参数是 className，第二个参数是 objectId
-            const listCountToUpdate = AV.Object.createWithoutData('todolist', this.getActiveTodoList.objectId)
-            // 修改属性
-            listCountToUpdate.set('count', this.getActiveTodoList.count)
-            // 保存到云端
-            listCountToUpdate.save()
+            // 写这个判断是防止已经完成的项目删除也会减一
+            if (!item.done) {
+              // 更新count
+              this.updateActiveTodolistCount(this.getActiveTodoList.count - 1)
+              //          // 第一个参数是 className，第二个参数是 objectId
+              const listCountToUpdate = AV.Object.createWithoutData('todolist', this.getActiveTodoList.objectId)
+              // 修改属性
+              listCountToUpdate.set('count', this.getActiveTodoList.count)
+              // 保存到云端
+              listCountToUpdate.save()
+            }
             this.deleteTodoitem(item)
           }, function (error) {
             // 失败

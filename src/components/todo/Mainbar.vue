@@ -125,9 +125,9 @@ export default {
     updateCurrentTime () {
       console.log('aaaaaaaaa')
       setInterval(() => {
-        console.log('aaaaaaaaa')
+//        console.log('aaaaaaaaa')
         this.currentTime = moment().locale('zh-cn').format('MMMM Do YYYY, h:mm:ss a')
-        console.log(this.currentTime)
+//        console.log(this.currentTime)
       }, 1000)
     },
     editAndSaveTitle: function (editedValue) {
